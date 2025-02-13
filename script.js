@@ -1,8 +1,12 @@
 let access_btn = document.querySelectorAll(".btn");
 let access_rbtn = document.querySelector(".reset_btn");
-let access_msgcontainer = document.querySelector(".msg-container"); // Fixed typo
+let access_msgcontainer = document.querySelector(".msg-conatiner");
 let access_restart_btn = document.querySelector(".restart_btn");
 let access_msg = document.querySelector("#msg");
+
+// Add sound effect
+let clickSound = new Audio("Click_sound.wav");
+let winsound = new Audio();
 
 let clickO = true;
 const winpatten = [
@@ -19,6 +23,10 @@ const reset_btn = () => {
 
 access_btn.forEach((btn) => {
     btn.addEventListener("click", () => {
+        console.log("Button was clicked");
+
+        clickSound.play();
+
         if (clickO) {
             btn.innerText = "O";
             btn.style.color = "red";
@@ -30,23 +38,25 @@ access_btn.forEach((btn) => {
         }
         btn.disabled = true;
 
-        check_winner(); // Fixed function name
+        check_winner();
     });
 });
 
 const disable_btn = () => {
-    access_btn.forEach(btn => btn.disabled = true);
+    for (const btn of access_btn) {
+        btn.disabled = true;
+    }
 };
 
 const enable_btn = () => {
-    access_btn.forEach(btn => {
+    for (const btn of access_btn) {
         btn.disabled = false;
         btn.innerText = "";
-    });
+    }
 };
 
 const showwinner = (winner) => {
-    access_msg.innerText = `Congratulations, Winner is ${winner}`;
+    access_msg.innerText = `🎉 Congratulations! Winner is ${winner}`;
     access_msgcontainer.classList.remove("hide");
     disable_btn();
 };
@@ -57,9 +67,11 @@ const check_winner = () => {
         let p2 = access_btn[pattern[1]].innerText;
         let p3 = access_btn[pattern[2]].innerText;
 
-        if (p1 !== "" && p1 === p2 && p2 === p3) {
-            console.log("Winner:", p1);
-            showwinner(p1);
+        if (p1 !== "" && p2 !== "" && p3 !== "") {
+            if (p1 === p2 && p2 === p3) {
+                console.log("Winner", p1);
+                showwinner(p1);
+            }
         }
     }
 };
