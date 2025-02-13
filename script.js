@@ -5,7 +5,7 @@ let access_restart_btn = document.querySelector(".restart_btn");
 let access_msg = document.querySelector("#msg");
 
 // Add sound effect
-let clickSound = new Audio("Click_sound.wav");
+let clickSound = new Audio("/assets/Click_sound.wav");
 let winsound = new Audio();
 
 let clickO = true;
